@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 docker run --rm \
 	--name pbwatch-db \
 	-e POSTGRES_USER=polpettone \
