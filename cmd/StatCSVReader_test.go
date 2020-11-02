@@ -1,9 +1,9 @@
 package cmd
 
 import (
+	"github.com/go-test/deep"
 	"testing"
 	"time"
-	"github.com/go-test/deep"
 )
 
 func Test_should_read_csv(t *testing.T) {
