@@ -20,18 +20,21 @@ func (app *Application) NewRunCmd() *cobra.Command {
 
 func (app *Application) handleRunCommand() {
 
+	repo := NewRepo(app.Logging,
+		app.DBPort,
+		app.DBUser,
+		app.DBPassword,
+		app.DBName)
 
-	dummyStat := &Stat{
-		Date:   DateTime{simpleDate(2020, 10, 29)},
-		RunningDistance: 4.5,
-		PressUpCount: 4,
-		Weight: 75.5,
-		BodyFeeling: 3,
-		EmotionalFeeling: 4,
+	stat, err := repo.findStatByDate(DateTime{simpleDate(2020, 10, 29)})
+
+	if err != nil {
+		app.Logging.ErrorLog.Printf("%v", err)
+		return
 	}
 
-	yamlDummyStat, err := yaml.Marshal(dummyStat)
-	result, err := CaptureInputFromEditor(string(yamlDummyStat))
+	yamlStat, err := yaml.Marshal(stat)
+	result, err := CaptureInputFromEditor(string(yamlStat))
 
 	if err != nil {
 		app.Logging.ErrorLog.Printf("%v", err)
@@ -46,9 +49,19 @@ func (app *Application) handleRunCommand() {
 		return
 	}
 
+	err = repo.saveStat(editedStat)
+
+	if err != nil {
+		app.Logging.ErrorLog.Printf("%v", err)
+		return
+	}
+
+
+
 	app.Logging.Stdout.Printf("%v", editedStat)
 	app.Logging.Stdout.Printf("------------------------")
 	app.Logging.Stdout.Printf(result)
+
 }
 
 

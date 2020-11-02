@@ -15,7 +15,7 @@ func NewApplication(logging *Logging) *Application {
 		Logging: logging,
 		DBPort: ":5432",
 		DBUser: "polpettone",
-		DBPassword :"pbwatch",
+		DBPassword :"polpettone",
 		DBName : "pbwatch",
 	}
 }

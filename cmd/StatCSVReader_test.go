@@ -20,7 +20,7 @@ func Test_should_read_csv(t *testing.T) {
 	}
 
 	expectedStat1 := &Stat{
-		Date:   DateTime{simpleDate(2020, 10, 30)},
+		Date:   DateTime{SimpleDate(2020, 10, 30)},
 		RunningDistance: 5.5,
 		PressUpCount: 8,
 		Weight: 76.5,
@@ -46,6 +46,6 @@ func Test_should_read_csv(t *testing.T) {
 
 }
 
-func simpleDate(year, month, day int) time.Time {
+func SimpleDate(year, month, day int) time.Time {
 	return time.Date(year, time.Month(month), day, 00, 00, 00, 00, time.Local)
 }
