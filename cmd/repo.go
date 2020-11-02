@@ -44,7 +44,6 @@ func (repo *Repo) saveStat(stat *Stat) error {
 	defer db.Close()
 	result, err := db.Model(stat).
 		OnConflict("(date) DO UPDATE").
-		Set("emotional_feeling = EXCLUDED.emotional_feeling").
 		Insert()
 	if err != nil {
 		return err

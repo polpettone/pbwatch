@@ -64,7 +64,7 @@ func Test_save_and_load_stats(t *testing.T) {
 		RunningDistance: 4.5,
 		PressUpCount: 4,
 		Weight: 75.5,
-		BodyFeeling: 3,
+		BodyFeeling: 0,
 		EmotionalFeeling: 1,
 	}
 
@@ -105,6 +105,32 @@ func Test_save_and_load_stats(t *testing.T) {
 
 	if shouldNotFound != nil {
 		t.Errorf("%v", shouldNotFound)
+	}
+
+
+	stat2:= &Stat{
+		Date:   DateTime{simpleDate(2020, 12, 1)},
+		RunningDistance: 22,
+		PressUpCount: 100,
+		Weight: 80,
+		BodyFeeling: 5,
+		EmotionalFeeling: 5,
+	}
+
+
+	err = repo.saveStat(stat2)
+	if err != nil {
+		t.Errorf("save stat %v", err)
+	}
+
+	foundStat, err = repo.findStatByDate(DateTime{simpleDate(2020, 12, 1)})
+
+	if err != nil {
+		t.Errorf("%v", err)
+	}
+
+	if diff := deep.Equal(foundStat, stat2); diff != nil {
+		t.Error(diff)
 	}
 
 	err = postgres.Stop()
