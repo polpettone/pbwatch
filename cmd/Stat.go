@@ -1,5 +1,7 @@
 package cmd
 
+import "fmt"
+
 type Stat struct {
 	ID   int64
 	Date             DateTime `csv:"Date" pg:",unique"`
@@ -11,4 +13,7 @@ type Stat struct {
 }
 
 
-
+func (stat Stat) niceString() string {
+	return fmt.Sprintf("%v \t %f \t %f",
+		 stat.Date, stat.RunningDistance, stat.Weight)
+}
