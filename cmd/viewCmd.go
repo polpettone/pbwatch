@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"github.com/spf13/cobra"
+	"sort"
 )
 
 func (app *Application) NewViewCmd() *cobra.Command {
@@ -29,6 +30,10 @@ func (app *Application) handleViewCommand() {
 		app.Logging.ErrorLog.Printf("%v", err)
 		return
 	}
+
+	sort.Slice(stats, func(i, j int) bool {
+		return stats[i].Date.After(stats[j].Date.Time)
+	})
 
 	for _,s := range stats {
 		app.Logging.Stdout.Printf("%s", s.niceString())
