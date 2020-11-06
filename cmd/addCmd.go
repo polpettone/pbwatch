@@ -27,7 +27,7 @@ func (app *Application) handleAddCommand() {
 
 	now := time.Now()
 	stat := &Stat{
-		Date: DateTime{simpleDate(now.Year(), int(now.Month()), now.Day())},
+		Date: DateTime{SimpleDate(now.Year(), int(now.Month()), now.Day())},
 	}
 
 	yamlStat, err := yaml.Marshal(stat)
@@ -53,6 +53,10 @@ func (app *Application) handleAddCommand() {
 		return
 	}
 
+}
+
+func SimpleDate(year, month, day int) time.Time {
+	return time.Date(year, time.Month(month), day, 00, 00, 00, 00, time.Local)
 }
 
 func init() {

@@ -10,25 +10,6 @@ import (
 
 const DefaultEditor = "vim"
 
-func OpenFileInEditor(filename string) error {
-	editor := os.Getenv("EDITOR")
-	if editor == "" {
-		editor = DefaultEditor
-	}
-
-	executable, err := exec.LookPath(editor)
-	if err != nil {
-		return err
-	}
-
-	command := exec.Command(executable, filename)
-	command.Stdin = os.Stdin
-	command.Stdout = os.Stdout
-	command.Stderr = os.Stderr
-
-	return command.Run()
-}
-
 func CaptureInputFromEditor(content string) (string, error) {
 	file, err := ioutil.TempFile(os.TempDir(), "*")
 	if err != nil {
@@ -49,7 +30,7 @@ func CaptureInputFromEditor(content string) (string, error) {
 		return "", err
 	}
 
-	if err = OpenFileInEditor(filename); err != nil {
+	if err = openFileInEditor(filename); err != nil {
 		return "", err
 	}
 
@@ -59,4 +40,23 @@ func CaptureInputFromEditor(content string) (string, error) {
 	}
 
 	return strings.TrimSpace(string(bytes)), nil
+}
+
+func openFileInEditor(filename string) error {
+	editor := os.Getenv("EDITOR")
+	if editor == "" {
+		editor = DefaultEditor
+	}
+
+	executable, err := exec.LookPath(editor)
+	if err != nil {
+		return err
+	}
+
+	command := exec.Command(executable, filename)
+	command.Stdin = os.Stdin
+	command.Stdout = os.Stdout
+	command.Stderr = os.Stderr
+
+	return command.Run()
 }

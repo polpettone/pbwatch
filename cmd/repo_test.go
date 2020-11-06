@@ -32,7 +32,7 @@ func Test_save_and_load_stats(t *testing.T) {
 	}
 
 	stat0:= &Stat{
-		Date:   DateTime{simpleDate(2020, 10, 29)},
+		Date:   DateTime{SimpleDate(2020, 10, 29)},
 		RunningDistance: 4.5,
 		PressUpCount: 4,
 		Weight: 75.5,
@@ -60,7 +60,7 @@ func Test_save_and_load_stats(t *testing.T) {
 	}
 
 	stat1:= &Stat{
-		Date:   DateTime{simpleDate(2020, 10, 29)},
+		Date:   DateTime{SimpleDate(2020, 10, 29)},
 		RunningDistance: 4.5,
 		PressUpCount: 4,
 		Weight: 75.5,
@@ -87,7 +87,7 @@ func Test_save_and_load_stats(t *testing.T) {
 		t.Error(diff)
 	}
 
-	foundStat, err := repo.findStatByDate(DateTime{simpleDate(2020, 10, 29)})
+	foundStat, err := repo.findStatByDate(DateTime{SimpleDate(2020, 10, 29)})
 
 	if err != nil {
 		t.Errorf("%v", err)
@@ -97,7 +97,7 @@ func Test_save_and_load_stats(t *testing.T) {
 		t.Error(diff)
 	}
 
-	shouldNotFound, err := repo.findStatByDate(DateTime{simpleDate(2010, 1, 1)})
+	shouldNotFound, err := repo.findStatByDate(DateTime{SimpleDate(2010, 1, 1)})
 
 	if err == nil {
 		t.Errorf("%s", "error should not be nil")
@@ -109,7 +109,7 @@ func Test_save_and_load_stats(t *testing.T) {
 
 
 	stat2:= &Stat{
-		Date:   DateTime{simpleDate(2020, 12, 1)},
+		Date:   DateTime{SimpleDate(2020, 12, 1)},
 		RunningDistance: 22,
 		PressUpCount: 100,
 		Weight: 80,
@@ -123,7 +123,7 @@ func Test_save_and_load_stats(t *testing.T) {
 		t.Errorf("save stat %v", err)
 	}
 
-	foundStat, err = repo.findStatByDate(DateTime{simpleDate(2020, 12, 1)})
+	foundStat, err = repo.findStatByDate(DateTime{SimpleDate(2020, 12, 1)})
 
 	if err != nil {
 		t.Errorf("%v", err)

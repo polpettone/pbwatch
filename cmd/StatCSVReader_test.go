@@ -3,7 +3,6 @@ package cmd
 import (
 	"github.com/go-test/deep"
 	"testing"
-	"time"
 )
 
 func Test_should_read_csv(t *testing.T) {
@@ -11,7 +10,7 @@ func Test_should_read_csv(t *testing.T) {
 	stats, err := readStatCSV(fileToRead)
 
 	expectedStat0 := &Stat{
-		Date:   DateTime{simpleDate(2020, 10, 29)},
+		Date:   DateTime{SimpleDate(2020, 10, 29)},
 		RunningDistance: 4.5,
 		PressUpCount: 4,
 		Weight: 75.5,
@@ -43,9 +42,5 @@ func Test_should_read_csv(t *testing.T) {
 	if diff := deep.Equal(stats[1], expectedStat1); diff != nil {
 		t.Error(diff)
 	}
-
 }
 
-func SimpleDate(year, month, day int) time.Time {
-	return time.Date(year, time.Month(month), day, 00, 00, 00, 00, time.Local)
-}
