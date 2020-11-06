@@ -32,7 +32,7 @@ func (app *Application) handleEditCommand(args []string) {
 		app.Logging.Stdout.Printf("Could not parse date %v", err)
 	}
 
-	stat, err := repo.findStatByDate(DateTime{date})
+	stat, err := repo.findStatByDate(StatDateTime{date})
 
 	if err != nil {
 		app.Logging.Stdout.Printf("Could not find stat %v", err)

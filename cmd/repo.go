@@ -52,7 +52,7 @@ func (repo *Repo) saveStat(stat *Stat) error {
 	return nil
 }
 
-func (repo *Repo) findStatByDate(date DateTime) (*Stat, error) {
+func (repo *Repo) findStatByDate(date StatDateTime) (*Stat, error) {
 	db := pg.Connect(repo.DBOptions)
 	defer db.Close()
 	stat := &Stat{Date: date}

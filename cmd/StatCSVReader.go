@@ -8,11 +8,8 @@ import (
 	"time"
 )
 
-type DateTime struct {
-	time.Time
-}
 
-func (date *DateTime) UnmarshalCSV(csv string) (err error) {
+func (date *StatDateTime) UnmarshalCSV(csv string) (err error) {
 	if csv != "" {
 		date.Time, err = time.ParseInLocation("02.01.2006", csv, time.Local)
 		return err

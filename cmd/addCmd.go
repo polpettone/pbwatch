@@ -28,7 +28,7 @@ func (app *Application) handleAddCommand() {
 
 	now := time.Now()
 	stat := &Stat{
-		Date: DateTime{SimpleDate(now.Year(), int(now.Month()), now.Day())},
+		Date: StatDateTime{SimpleDate(now.Year(), int(now.Month()), now.Day())},
 	}
 
 	yamlStat, err := yaml.Marshal(stat)
