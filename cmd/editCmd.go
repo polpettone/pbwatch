@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"github.com/polpettone/pbwatch/pkg"
 	"github.com/spf13/cobra"
 	"gopkg.in/yaml.v2"
 	"time"
@@ -38,7 +39,7 @@ func (app *Application) handleEditCommand(args []string) {
 	}
 
 	yamlStat, err := yaml.Marshal(stat)
-	result, err := CaptureInputFromEditor(string(yamlStat))
+	result, err := pkg.CaptureInputFromEditor(string(yamlStat))
 
 	if err != nil {
 		app.Logging.ErrorLog.Printf("%v", err)
