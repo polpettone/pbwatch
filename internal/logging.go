@@ -1,4 +1,4 @@
-package cmd
+package internal
 
 import (
 	"log"
@@ -28,7 +28,7 @@ func NewLogging() *Logging {
 	errorLog := log.New(os.Stderr, "ERROR\t", log.Ldate|log.Ltime|log.Lshortfile)
 	debugLog := log.New(openLogFile("debug.log"), "DEBUG\t", log.Ldate|log.Ltime|log.Lshortfile)
 
-	app := &Logging {
+	app := &Logging{
 		Stdout:   stdout,
 		ErrorLog: errorLog,
 		InfoLog:  infoLog,

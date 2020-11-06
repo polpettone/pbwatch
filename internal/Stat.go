@@ -1,4 +1,4 @@
-package cmd
+package internal
 
 import (
 	"fmt"
@@ -19,7 +19,12 @@ type Stat struct {
 	EmotionalFeeling int          `csv:"EmotionalFeeling"`
 }
 
-func (stat Stat) niceString() string {
+func (stat Stat) NiceString() string {
 	return fmt.Sprintf("%s \t %f \t %d \t %f",
 		stat.Date.Format("02.01.2006"), stat.RunningDistance, stat.PressUpCount, stat.Weight)
 }
+
+func SimpleDate(year, month, day int) time.Time {
+	return time.Date(year, time.Month(month), day, 00, 00, 00, 00, time.Local)
+}
+

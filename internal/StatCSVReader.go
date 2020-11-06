@@ -1,4 +1,4 @@
-package cmd
+package internal
 
 import (
 	"encoding/csv"
@@ -17,7 +17,7 @@ func (date *StatDateTime) UnmarshalCSV(csv string) (err error) {
 	return nil
 }
 
-func readStatCSV(file string) ([]*Stat, error) {
+func ReadStatCSV(file string) ([]*Stat, error) {
 	f, err := os.OpenFile(file, os.O_RDWR|os.O_CREATE, os.ModePerm)
 	if err != nil {
 		return nil, err

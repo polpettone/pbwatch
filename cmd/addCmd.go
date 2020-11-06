@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"github.com/polpettone/pbwatch/internal"
 	"github.com/polpettone/pbwatch/pkg"
 	"github.com/spf13/cobra"
 	"gopkg.in/yaml.v2"
@@ -20,15 +21,15 @@ func (app *Application) NewAddCmd() *cobra.Command {
 }
 
 func (app *Application) handleAddCommand() {
-	repo := NewRepo(app.Logging,
+	repo := internal.NewRepo(app.Logging,
 		app.DBPort,
 		app.DBUser,
 		app.DBPassword,
 		app.DBName)
 
 	now := time.Now()
-	stat := &Stat{
-		Date: StatDateTime{SimpleDate(now.Year(), int(now.Month()), now.Day())},
+	stat := &internal.Stat{
+		Date: internal.StatDateTime{internal.SimpleDate(now.Year(), int(now.Month()), now.Day())},
 	}
 
 	yamlStat, err := yaml.Marshal(stat)
@@ -39,7 +40,7 @@ func (app *Application) handleAddCommand() {
 		return
 	}
 
-	editedStat := &Stat{}
+	editedStat := &internal.Stat{}
 
 	err = yaml.Unmarshal([]byte(result), &editedStat)
 	if err != nil {
@@ -47,7 +48,7 @@ func (app *Application) handleAddCommand() {
 		return
 	}
 
-	err = repo.saveStat(editedStat)
+	err = repo.SaveStat(editedStat)
 
 	if err != nil {
 		app.Logging.ErrorLog.Printf("%v", err)
@@ -56,12 +57,8 @@ func (app *Application) handleAddCommand() {
 
 }
 
-func SimpleDate(year, month, day int) time.Time {
-	return time.Date(year, time.Month(month), day, 00, 00, 00, 00, time.Local)
-}
-
 func init() {
-	logging := NewLogging()
+	logging := internal.NewLogging()
 	app := NewApplication(logging)
 	addCmd := app.NewAddCmd()
 	rootCmd.AddCommand(addCmd)

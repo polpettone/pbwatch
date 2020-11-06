@@ -1,16 +1,16 @@
 package cmd
 
-
+import "github.com/polpettone/pbwatch/internal"
 
 type Application struct {
-	Logging *Logging
+	Logging *internal.Logging
 	DBPort string
 	DBUser string
 	DBPassword string
 	DBName string
 }
 
-func NewApplication(logging *Logging) *Application {
+func NewApplication(logging *internal.Logging) *Application {
 	return &Application{
 		Logging: logging,
 		DBPort: ":5432",

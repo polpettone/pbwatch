@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"github.com/polpettone/pbwatch/internal"
 	"github.com/polpettone/pbwatch/pkg"
 	"github.com/spf13/cobra"
 	"gopkg.in/yaml.v2"
@@ -20,7 +21,7 @@ func (app *Application) NewEditCmd() *cobra.Command {
 }
 
 func (app *Application) handleEditCommand(args []string) {
-	repo := NewRepo(app.Logging,
+	repo := internal.NewRepo(app.Logging,
 		app.DBPort,
 		app.DBUser,
 		app.DBPassword,
@@ -32,7 +33,7 @@ func (app *Application) handleEditCommand(args []string) {
 		app.Logging.Stdout.Printf("Could not parse date %v", err)
 	}
 
-	stat, err := repo.findStatByDate(StatDateTime{date})
+	stat, err := repo.FindStatByDate(internal.StatDateTime{date})
 
 	if err != nil {
 		app.Logging.Stdout.Printf("Could not find stat %v", err)
@@ -46,7 +47,7 @@ func (app *Application) handleEditCommand(args []string) {
 		return
 	}
 
-	editedStat := &Stat{}
+	editedStat := &internal.Stat{}
 
 	err = yaml.Unmarshal([]byte(result), &editedStat)
 	if err != nil {
@@ -54,7 +55,7 @@ func (app *Application) handleEditCommand(args []string) {
 		return
 	}
 
-	err = repo.saveStat(editedStat)
+	err = repo.SaveStat(editedStat)
 
 	if err != nil {
 		app.Logging.ErrorLog.Printf("%v", err)
@@ -64,7 +65,7 @@ func (app *Application) handleEditCommand(args []string) {
 }
 
 func init() {
-	logging := NewLogging()
+	logging := internal.NewLogging()
 	app := NewApplication(logging)
 	editCmd := app.NewEditCmd()
 	rootCmd.AddCommand(editCmd)

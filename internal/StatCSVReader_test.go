@@ -1,4 +1,4 @@
-package cmd
+package internal
 
 import (
 	"github.com/go-test/deep"

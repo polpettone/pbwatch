@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"github.com/polpettone/pbwatch/internal"
 	"github.com/spf13/cobra"
 )
 
@@ -17,7 +18,7 @@ func (app *Application) NewEvalCmd() *cobra.Command {
 }
 
 type EvaluationView struct {
-	Stats []Stat
+	Stats []internal.Stat
 }
 
 func (evaluationView EvaluationView) totalRunningDistance() float64 {
@@ -29,13 +30,13 @@ func (evaluationView EvaluationView) totalRunningDistance() float64 {
 }
 
 func (app *Application) handleEvalCommand() {
-	repo := NewRepo(app.Logging,
+	repo := internal.NewRepo(app.Logging,
 		app.DBPort,
 		app.DBUser,
 		app.DBPassword,
 		app.DBName)
 
-	stats, err := repo.findAllStats()
+	stats, err := repo.FindAllStats()
 
 	if err != nil {
 		app.Logging.ErrorLog.Printf("%v", err)
@@ -50,7 +51,7 @@ func (app *Application) handleEvalCommand() {
 }
 
 func init() {
-	logging := NewLogging()
+	logging := internal.NewLogging()
 	app := NewApplication(logging)
 	evalCmd := app.NewEvalCmd()
 	rootCmd.AddCommand(evalCmd)

@@ -1,4 +1,4 @@
-package cmd
+package internal
 
 import (
 	"github.com/go-pg/pg/v10"
@@ -22,7 +22,7 @@ func NewRepo(logging *Logging, addr string, user string, password string, databa
 	}
 }
 
-func (repo *Repo) createSchema() error {
+func (repo *Repo) CreateSchema() error {
 	db := pg.Connect(repo.DBOptions)
 	defer db.Close()
 	models := []interface{}{
@@ -39,7 +39,7 @@ func (repo *Repo) createSchema() error {
 	return nil
 }
 
-func (repo *Repo) saveStat(stat *Stat) error {
+func (repo *Repo) SaveStat(stat *Stat) error {
 	db := pg.Connect(repo.DBOptions)
 	defer db.Close()
 	result, err := db.Model(stat).
@@ -52,7 +52,7 @@ func (repo *Repo) saveStat(stat *Stat) error {
 	return nil
 }
 
-func (repo *Repo) findStatByDate(date StatDateTime) (*Stat, error) {
+func (repo *Repo) FindStatByDate(date StatDateTime) (*Stat, error) {
 	db := pg.Connect(repo.DBOptions)
 	defer db.Close()
 	stat := &Stat{Date: date}
@@ -64,7 +64,7 @@ func (repo *Repo) findStatByDate(date StatDateTime) (*Stat, error) {
 }
 
 
-func (repo *Repo) findAllStats() ([]Stat, error) {
+func (repo *Repo) FindAllStats() ([]Stat, error) {
 	db := pg.Connect(repo.DBOptions)
 	defer db.Close()
 	var stats []Stat

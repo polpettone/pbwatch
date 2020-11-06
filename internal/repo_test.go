@@ -1,4 +1,4 @@
-package cmd
+package internal
 
 import (
 	embeddedpostgres "github.com/fergusstrange/embedded-postgres"
@@ -26,7 +26,7 @@ func Test_save_and_load_stats(t *testing.T) {
 		t.Errorf("Error %v start embedded db", err)
 	}
 
-	err = repo.createSchema()
+	err = repo.CreateSchema()
 	if err != nil {
 		t.Errorf("Create schema error %v", err)
 	}
@@ -40,13 +40,13 @@ func Test_save_and_load_stats(t *testing.T) {
 		EmotionalFeeling: 4,
 	}
 
-	err = repo.saveStat(stat0)
+	err = repo.SaveStat(stat0)
 	if err != nil {
 		t.Errorf("save stat %v", err)
 	}
 
 	expectedStatCount := 1
-	foundStats, err := repo.findAllStats()
+	foundStats, err := repo.FindAllStats()
 	if err != nil {
 		t.Errorf("Find all stats %v", err)
 	}
@@ -68,13 +68,13 @@ func Test_save_and_load_stats(t *testing.T) {
 		EmotionalFeeling: 1,
 	}
 
-	err = repo.saveStat(stat1)
+	err = repo.SaveStat(stat1)
 	if err != nil {
 		t.Errorf("save stat %v", err)
 	}
 
 	expectedStatCount = 1
-	foundStats, err = repo.findAllStats()
+	foundStats, err = repo.FindAllStats()
 	if err != nil {
 		t.Errorf("Find all stats%v", err)
 	}
@@ -87,7 +87,7 @@ func Test_save_and_load_stats(t *testing.T) {
 		t.Error(diff)
 	}
 
-	foundStat, err := repo.findStatByDate(StatDateTime{SimpleDate(2020, 10, 29)})
+	foundStat, err := repo.FindStatByDate(StatDateTime{SimpleDate(2020, 10, 29)})
 
 	if err != nil {
 		t.Errorf("%v", err)
@@ -97,7 +97,7 @@ func Test_save_and_load_stats(t *testing.T) {
 		t.Error(diff)
 	}
 
-	shouldNotFound, err := repo.findStatByDate(StatDateTime{SimpleDate(2010, 1, 1)})
+	shouldNotFound, err := repo.FindStatByDate(StatDateTime{SimpleDate(2010, 1, 1)})
 
 	if err == nil {
 		t.Errorf("%s", "error should not be nil")
@@ -118,12 +118,12 @@ func Test_save_and_load_stats(t *testing.T) {
 	}
 
 
-	err = repo.saveStat(stat2)
+	err = repo.SaveStat(stat2)
 	if err != nil {
 		t.Errorf("save stat %v", err)
 	}
 
-	foundStat, err = repo.findStatByDate(StatDateTime{SimpleDate(2020, 12, 1)})
+	foundStat, err = repo.FindStatByDate(StatDateTime{SimpleDate(2020, 12, 1)})
 
 	if err != nil {
 		t.Errorf("%v", err)

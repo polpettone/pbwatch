@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"github.com/polpettone/pbwatch/internal"
 	"github.com/spf13/cobra"
 	"sort"
 )
@@ -18,13 +19,13 @@ func (app *Application) NewViewCmd() *cobra.Command {
 }
 
 func (app *Application) handleViewCommand() {
-	repo := NewRepo(app.Logging,
+	repo := internal.NewRepo(app.Logging,
 		app.DBPort,
 		app.DBUser,
 		app.DBPassword,
 		app.DBName)
 
-	stats, err := repo.findAllStats()
+	stats, err := repo.FindAllStats()
 
 	if err != nil {
 		app.Logging.ErrorLog.Printf("%v", err)
@@ -36,12 +37,12 @@ func (app *Application) handleViewCommand() {
 	})
 
 	for _,s := range stats {
-		app.Logging.Stdout.Printf("%s", s.niceString())
+		app.Logging.Stdout.Printf("%s", s.NiceString())
 	}
 }
 
 func init() {
-	logging := NewLogging()
+	logging := internal.NewLogging()
 	app := NewApplication(logging)
 	viewCmd := app.NewViewCmd()
 	rootCmd.AddCommand(viewCmd)

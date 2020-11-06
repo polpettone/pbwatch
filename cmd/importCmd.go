@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"github.com/polpettone/pbwatch/internal"
 	"github.com/spf13/cobra"
 )
 
@@ -21,7 +22,7 @@ func (app *Application) handleImportCommand(cobraCommand *cobra.Command) {
 
 	app.Logging.Stdout.Printf("import")
 
-	repo := NewRepo(app.Logging,
+	repo := internal.NewRepo(app.Logging,
 		app.DBPort,
 		app.DBUser,
 		app.DBPassword,
@@ -29,19 +30,19 @@ func (app *Application) handleImportCommand(cobraCommand *cobra.Command) {
 
 	if initial {
 		app.Logging.Stdout.Printf("Create Schema")
-		err := repo.createSchema()
+		err := repo.CreateSchema()
 		if err != nil {
 			app.Logging.Stdout.Printf("%v", err)
 		}
 	}
 
 	pathToCSV := "/home/icke/.pbwatch/stats.csv"
-	stats, err := readStatCSV(pathToCSV)
+	stats, err := internal.ReadStatCSV(pathToCSV)
 	if err != nil {
 		app.Logging.Stdout.Printf("%v", err)
 	}
 	for _, s := range stats {
-		err = repo.saveStat(s)
+		err = repo.SaveStat(s)
 		if err != nil {
 			app.Logging.Stdout.Printf("%v", err)
 		}
@@ -49,7 +50,7 @@ func (app *Application) handleImportCommand(cobraCommand *cobra.Command) {
 }
 
 func init() {
-	logging := NewLogging()
+	logging := internal.NewLogging()
 	app := NewApplication(logging)
 	importCmd := app.NewImportCmd()
 
