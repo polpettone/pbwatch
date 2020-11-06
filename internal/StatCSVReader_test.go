@@ -7,7 +7,7 @@ import (
 
 func Test_should_read_csv(t *testing.T) {
 	fileToRead := "testStats.csv"
-	stats, err := readStatCSV(fileToRead)
+	stats, err := ReadStatCSV(fileToRead)
 
 	expectedStat0 := &Stat{
 		Date:             StatDateTime{SimpleDate(2020, 10, 29)},
