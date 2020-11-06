@@ -14,6 +14,6 @@ type Stat struct {
 
 
 func (stat Stat) niceString() string {
-	return fmt.Sprintf("%s \t %f \t %f",
-		 stat.Date.Format("02.01.2006"), stat.RunningDistance, stat.Weight)
+	return fmt.Sprintf("%s \t %f \t %d \t %f",
+		 stat.Date.Format("02.01.2006"), stat.RunningDistance, stat.PressUpCount, stat.Weight)
 }
