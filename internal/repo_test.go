@@ -13,7 +13,7 @@ const db = "pbwatch"
 
 
 func Test_save_and_load_stats(t *testing.T) {
-	logging := NewLogging()
+	logging := NewLogging(false)
 	repo := NewRepo(logging, addr, user, password, db)
 	postgres := embeddedpostgres.NewDatabase(embeddedpostgres.DefaultConfig().
 		Username(repo.DBOptions.User).

@@ -51,7 +51,7 @@ func (app *Application) handleEvalCommand() {
 }
 
 func init() {
-	logging := internal.NewLogging()
+	logging := internal.NewLogging(false)
 	app := NewApplication(logging)
 	evalCmd := app.NewEvalCmd()
 	rootCmd.AddCommand(evalCmd)

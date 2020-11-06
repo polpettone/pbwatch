@@ -58,7 +58,7 @@ func (app *Application) handleAddCommand() {
 }
 
 func init() {
-	logging := internal.NewLogging()
+	logging := internal.NewLogging(false)
 	app := NewApplication(logging)
 	addCmd := app.NewAddCmd()
 	rootCmd.AddCommand(addCmd)

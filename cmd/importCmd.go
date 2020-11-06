@@ -50,7 +50,7 @@ func (app *Application) handleImportCommand(cobraCommand *cobra.Command) {
 }
 
 func init() {
-	logging := internal.NewLogging()
+	logging := internal.NewLogging(false)
 	app := NewApplication(logging)
 	importCmd := app.NewImportCmd()
 

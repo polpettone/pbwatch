@@ -65,7 +65,7 @@ func (app *Application) handleEditCommand(args []string) {
 }
 
 func init() {
-	logging := internal.NewLogging()
+	logging := internal.NewLogging(false)
 	app := NewApplication(logging)
 	editCmd := app.NewEditCmd()
 	rootCmd.AddCommand(editCmd)

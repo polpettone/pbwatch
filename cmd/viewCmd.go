@@ -42,7 +42,7 @@ func (app *Application) handleViewCommand() {
 }
 
 func init() {
-	logging := internal.NewLogging()
+	logging := internal.NewLogging(false)
 	app := NewApplication(logging)
 	viewCmd := app.NewViewCmd()
 	rootCmd.AddCommand(viewCmd)
