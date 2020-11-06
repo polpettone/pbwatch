@@ -26,7 +26,7 @@ func NewLogging(enabled bool) *Logging {
 	var debugLog *log.Logger
 
 	stdout := log.New(os.Stdout, "", 0)
-	errorLog := log.New(os.Stderr, "ERROR\t", log.Ldate|log.Ltime|log.Lshortfile)
+	errorLog := log.New(os.Stderr, "", 0)
 
 	if enabled {
 		infoLog = log.New(openLogFile("pbwatch_info.log"), "INFO\t", log.Ldate|log.Ltime)
